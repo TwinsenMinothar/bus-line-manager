@@ -17,4 +17,7 @@ public class Aposentado extends Passageiro {
     @Override
     public void imprimir(){}
 
+    public String getRg() {
+        return rg;
+    }
 }

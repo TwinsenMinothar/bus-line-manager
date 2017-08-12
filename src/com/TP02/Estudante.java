@@ -17,4 +17,7 @@ public class Estudante extends Passageiro {
     @Override
     public void imprimir(){}
 
+    public String getRa() {
+        return ra;
+    }
 }

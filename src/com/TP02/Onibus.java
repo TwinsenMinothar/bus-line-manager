@@ -10,18 +10,13 @@ public class Onibus {
     private String nomeDaLinha;
     private String motorista;
     private List<Passageiro> passageiroVet;
-    static List<Onibus> onibusVet;
     private double taxa;
 
-    public static List<Onibus> getOnibusVet() {
-        return onibusVet;
-    }
-
-    public Onibus(String nomeDaLinha, String nomeDoMotorista, float precoPassagem) {
+    public Onibus(String nomeDaLinha, String nomeDoMotorista, float precoPassagem,List<Passageiro> passageiroVet) {
         this.nomeDaLinha = nomeDaLinha;
         this.motorista = nomeDoMotorista;
         this.precoPassagem = precoPassagem;
-        passageiroVet = new ArrayList<>();
+        this.passageiroVet = new ArrayList<>(passageiroVet);
     }
 
     public void addPassageiro(Passageiro p) {
@@ -42,22 +37,8 @@ public class Onibus {
         return caixa;
     }
 
-    public static void novoOnibus(String nomeDaLinha) {
-        //System.out.println(nomeDaLinha);
-        onibusVet.add(new Onibus(nomeDaLinha, "Carlos", 0));
-
-    }
-
     public String getNomeDaLinha() {
         return nomeDaLinha;
-    }
-
-    public static int getOnibusPorNome(String nome) {
-        for (int i = 0; i < onibusVet.size(); i++) {
-            if (onibusVet.get(i).getNomeDaLinha().equals(nome))
-                return i;
-        }
-        return -1;
     }
 
     public float getPrecoPassagem() {
@@ -80,4 +61,7 @@ public class Onibus {
         this.motorista = motorista;
     }
 
+    public List<Passageiro> getPassageiroVet() {
+        return passageiroVet;
+    }
 }
