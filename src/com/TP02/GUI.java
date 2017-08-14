@@ -15,6 +15,8 @@ public class GUI {
         sairButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                FileIO fi = new FileIO();
+                fi.writeFile();
                 System.exit(0);
             }
         });

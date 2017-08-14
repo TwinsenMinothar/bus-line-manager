@@ -1,21 +1,23 @@
 package com.TP02;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Onibus {
+
+public class Onibus implements Serializable {
     private int id;
     private float precoPassagem;
     private float caixa;
     private String nomeDaLinha;
     private String motorista;
     private List<Passageiro> passageiroVet;
-    private double taxa;
 
-    public Onibus(String nomeDaLinha, String nomeDoMotorista, float precoPassagem,List<Passageiro> passageiroVet) {
+    public Onibus(String nomeDaLinha, String nomeDoMotorista, float precoPassagem, List<Passageiro> passageiroVet) {
         this.nomeDaLinha = nomeDaLinha;
         this.motorista = nomeDoMotorista;
         this.precoPassagem = precoPassagem;
+        this.caixa = 0;
         this.passageiroVet = new ArrayList<>(passageiroVet);
     }
 
@@ -33,7 +35,14 @@ public class Onibus {
         }
     }
 
-    public double calculaTotalArrecadado() {
+    public float getTotalArrecadado() {
+        this.caixa = 0;
+        for (Passageiro pas : passageiroVet) {
+            if (pas.getClass() == Passageiro.class)
+                caixa += precoPassagem;
+            else if (pas.getClass() == Estudante.class)
+                caixa += precoPassagem / 2;
+        }
         return caixa;
     }
 

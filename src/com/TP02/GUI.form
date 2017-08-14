@@ -3,47 +3,48 @@
   <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="6" y="0" width="860" height="552"/>
+      <xy x="6" y="0" width="507" height="398"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-16486801"/>
+      <font size="16"/>
+    </properties>
     <border type="none"/>
     <children>
       <component id="4f840" class="javax.swing.JButton" binding="novaViagemButton" default-binding="true">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="410" height="29"/>
-          </grid>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-6160607"/>
           <text value="Nova Viagem"/>
         </properties>
       </component>
       <component id="ed6b2" class="javax.swing.JButton" binding="configurarViagensButton" default-binding="true">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="410" height="29"/>
-          </grid>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-263636"/>
           <text value="Configurar Viagens"/>
         </properties>
       </component>
       <component id="c86f1" class="javax.swing.JButton" binding="sairButton" default-binding="true">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="410" height="29"/>
-          </grid>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Sair"/>
+          <background color="-65528"/>
+          <text value="Salvar e Sair"/>
         </properties>
       </component>
-      <component id="7a330" class="javax.swing.JLabel">
+      <component id="17c94" class="javax.swing.JLabel">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font name="Arial Black" size="16"/>
+          <background color="-1"/>
+          <foreground color="-1"/>
           <text value="Bem vindos ao programa de gerenciamento de linhas"/>
         </properties>
       </component>

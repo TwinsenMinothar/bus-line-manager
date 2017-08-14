@@ -2,6 +2,7 @@ package com.TP02;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,12 +18,16 @@ public class NovoOnibusDialog extends JDialog {
     private JTextField precoDaPassagem;
     private JLabel configurandoViagensLabel;
     private JButton adicionarPassageirosButton;
+    private char[] alphabet = "abcdefghijklmnopqrstuvwxyz/*-+,".toCharArray();
     private List<Passageiro> passVet;
+    private boolean flag;
 
     public NovoOnibusDialog() {
+        passVet = new ArrayList<>();
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        flag = false;
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -54,19 +59,36 @@ public class NovoOnibusDialog extends JDialog {
         adicionarPassageirosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-               passVet =  AdicionarPassageirosDialog.main(null);
+                passVet = AdicionarPassageirosDialog.main(null);
 
+            }
+        });
+
+        precoDaPassagem.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent keyEvent) {
+                super.keyTyped(keyEvent);
+                for (char letter : alphabet)
+                    if (keyEvent.getKeyChar() == letter) {
+                        JOptionPane.showMessageDialog(null, "Somente números no preço da passagem!", null, JOptionPane.ERROR_MESSAGE);
+                        flag = true;
+                        break;
+                    } else
+                        flag = false;
             }
         });
     }
 
     private void onOK() {
-        if (!Objects.equals(nomeDaLinha.getText(), "") && !Objects.equals(nomeDoMotorista.getText(), "") && !Objects.equals(precoDaPassagem.getText(), "")) {
-            onibusVet.add(new Onibus(nomeDaLinha.getText(), nomeDoMotorista.getText(), Float.parseFloat(precoDaPassagem.getText()),passVet));
-            JOptionPane.showMessageDialog(null, "Nova viagem criada com sucesso!!");
+        if(passVet.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Adicione algum Passageiro!!", null, JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        else
-            JOptionPane.showMessageDialog(null, "Dados Invlidos!!",null,JOptionPane.ERROR_MESSAGE);
+        if (!Objects.equals(nomeDaLinha.getText(), "") && !Objects.equals(nomeDoMotorista.getText(), "") && !Objects.equals(precoDaPassagem.getText(), "") && !flag) {
+            onibusVet.add(new Onibus(nomeDaLinha.getText(), nomeDoMotorista.getText(), Float.parseFloat(precoDaPassagem.getText()), passVet));
+            JOptionPane.showMessageDialog(null, "Nova viagem criada com sucesso!!");
+        } else
+            JOptionPane.showMessageDialog(null, "Dados Inválidos!!", null, JOptionPane.ERROR_MESSAGE);
         dispose();
     }
 

@@ -8,8 +8,9 @@ public class Main {
 
     public static List<Onibus> onibusVet;
 
-    public static void main(String[] args){
-        onibusVet = new ArrayList<>();
+    public static void main(String[] args) {
+        FileIO fi = new FileIO();
+        fi.readFile();
         JFrame mainMenu = new JFrame("Fuck My Life");
         mainMenu.setContentPane(new GUI().getMainPanel());
         mainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -20,6 +21,10 @@ public class Main {
 
     public static List<Onibus> getOnibusVet() {
         return onibusVet;
+    }
+
+    public static void setOnibusVet(ArrayList<Onibus> onibusIOVet) {
+        onibusVet = new ArrayList<>(onibusIOVet);
     }
 
     public static int getOnibusPorNome(String nome) {

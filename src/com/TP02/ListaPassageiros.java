@@ -17,8 +17,10 @@ public class ListaPassageiros extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTable tabelaPassageiros;
+    private JButton adicionarPassageirosButton;
     private List<Passageiro> vetPas;
-    private Object[] colunas = new String[]{"Tipo", "Nome", "RG/RA"};
+    private List<Passageiro> vetPasAdd;
+    private Object[] colunas = new String[]{"ID","Tipo", "Nome", "RG/RA"};
 
     public ListaPassageiros() {
         setContentPane(contentPane);
@@ -28,13 +30,14 @@ public class ListaPassageiros extends JDialog {
 
         DefaultTableModel model;
         model = new DefaultTableModel();
-        model.setColumnCount(3);
+        model.setColumnCount(4);
         model.setRowCount(vetPas.size());
         model.setColumnIdentifiers(colunas);
         tabelaPassageiros.setDefaultEditor(Object.class,null);
 
         for (int i = 0; i < vetPas.size(); i++) {
             int j = 0;
+            model.setValueAt(Integer.toString(i+1),i,j++);
             model.setValueAt(vetPas.get(i).getClass().getSimpleName(), i, j++);
             model.setValueAt(vetPas.get(i).getNome(), i, j++);
             if (Objects.equals(vetPas.get(i).getClass().getSimpleName(), "Estudante")) {
@@ -72,6 +75,16 @@ public class ListaPassageiros extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        adicionarPassageirosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                vetPasAdd = AdicionarPassageirosDialog.main(null);
+                vetPas.addAll(vetPasAdd);
+                dispose();
+                ListaPassageiros.main(new String[]{nomeDaV});
+            }
+        });
     }
 
     private void onOK() {

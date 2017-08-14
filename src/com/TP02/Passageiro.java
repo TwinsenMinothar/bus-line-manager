@@ -1,18 +1,25 @@
 package com.TP02;
 
-public class Passageiro {
+import java.io.Serializable;
+
+public class Passageiro implements Serializable {
 
     private String nome;
 
-    public Passageiro(){}
+    public Passageiro() {
+    }
 
-    public Passageiro(String nome){
+    public Passageiro(String nome) {
         this.nome = nome;
     }
 
-    public double calcPaga(double taxa){return 0;}
+    public double calcPaga(double taxa) {
+        return taxa;
+    }
 
-    public void imprimir(){}
+    public void imprimir() {
+        System.out.println("Nome: " + this.nome);
+    }
 
     public String getNome() {
         return nome;
