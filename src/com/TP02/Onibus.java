@@ -3,6 +3,7 @@ package com.TP02;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Onibus implements Serializable {
@@ -12,6 +13,9 @@ public class Onibus implements Serializable {
     private String nomeDaLinha;
     private String motorista;
     private List<Passageiro> passageiroVet;
+    private int totalEstudantes;
+    private int totalAposentados;
+    private int totalComuns;
 
     public Onibus(String nomeDaLinha, String nomeDoMotorista, float precoPassagem, List<Passageiro> passageiroVet) {
         this.nomeDaLinha = nomeDaLinha;
@@ -29,9 +33,9 @@ public class Onibus implements Serializable {
         passageiroVet.add(p);
     }
 
-    public void imprimirPassageiro() {
+    public void imprimirPassageiros() {
         for (Passageiro pas : passageiroVet) {
-            System.out.print(pas.getNome() + " ");
+            pas.imprimir();
         }
     }
 
@@ -72,5 +76,31 @@ public class Onibus implements Serializable {
 
     public List<Passageiro> getPassageiroVet() {
         return passageiroVet;
+    }
+
+    public int getTotalEstudantes() {
+        totalEstudantes = 0;
+        for (Passageiro pas : passageiroVet) {
+            if (Objects.equals(pas.getClass().getSimpleName(), Estudante.class.getSimpleName()))
+                totalEstudantes++;
+        }
+        return totalEstudantes;
+    }
+
+    public int getTotalAposentados() {
+        totalAposentados = 0;
+        for (Passageiro pas : passageiroVet) {
+            if (Objects.equals(pas.getClass().getSimpleName(), Aposentado.class.getSimpleName()))
+                totalAposentados++;
+        }
+        return totalAposentados;
+    }
+
+    public int getTotalComuns() {
+        totalComuns = 0;
+        for (Passageiro pas : passageiroVet)
+            if (Objects.equals(pas.getClass().getSimpleName(), Passageiro.class.getSimpleName()))
+                totalComuns++;
+        return totalComuns;
     }
 }

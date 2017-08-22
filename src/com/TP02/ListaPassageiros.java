@@ -20,32 +20,38 @@ public class ListaPassageiros extends JDialog {
     private JButton adicionarPassageirosButton;
     private List<Passageiro> vetPas;
     private List<Passageiro> vetPasAdd;
-    private Object[] colunas = new String[]{"ID","Tipo", "Nome", "RG/RA"};
+    private Onibus onibus;
+    private Object[] colunas = new String[]{"ID", "Tipo", "Nome", "RG/RA", "Valor Pago"};
 
     public ListaPassageiros() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-        vetPas = Main.onibusVet.get(Main.getOnibusPorNome(nomeDaV)).getPassageiroVet();
+        onibus = Main.onibusVet.get(Main.getOnibusPorNome(nomeDaV));
+        vetPas = onibus.getPassageiroVet();
 
         DefaultTableModel model;
         model = new DefaultTableModel();
-        model.setColumnCount(4);
+        model.setColumnCount(5);
         model.setRowCount(vetPas.size());
         model.setColumnIdentifiers(colunas);
-        tabelaPassageiros.setDefaultEditor(Object.class,null);
+        tabelaPassageiros.setDefaultEditor(Object.class, null);
 
         for (int i = 0; i < vetPas.size(); i++) {
             int j = 0;
-            model.setValueAt(Integer.toString(i+1),i,j++);
+            model.setValueAt(Integer.toString(i + 1), i, j++);
             model.setValueAt(vetPas.get(i).getClass().getSimpleName(), i, j++);
             model.setValueAt(vetPas.get(i).getNome(), i, j++);
             if (Objects.equals(vetPas.get(i).getClass().getSimpleName(), "Estudante")) {
-                model.setValueAt(((Estudante) vetPas.get(i)).getRa(), i, j);
+                model.setValueAt(((Estudante) vetPas.get(i)).getRa(), i, j++);
+                model.setValueAt(onibus.getPrecoPassagem() / 2, i, j);
             } else if (Objects.equals(vetPas.get(i).getClass().getSimpleName(), "Aposentado")) {
-                model.setValueAt(((Aposentado) vetPas.get(i)).getRg(), i, j);
-            } else
-                model.setValueAt("", i, j);
+                model.setValueAt(((Aposentado) vetPas.get(i)).getRg(), i, j++);
+                model.setValueAt(0, i, j);
+            } else {
+                model.setValueAt("", i, j++);
+                model.setValueAt(onibus.getPrecoPassagem(),i,j);
+            }
         }
         tabelaPassageiros.setModel(model);
 

@@ -1,6 +1,9 @@
 package com.TP02;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +14,15 @@ public class Main {
     public static void main(String[] args) {
         FileIO fi = new FileIO();
         fi.readFile();
-        JFrame mainMenu = new JFrame("Fuck My Life");
+        JFrame mainMenu = new JFrame();
         mainMenu.setContentPane(new GUI().getMainPanel());
         mainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        try {
+            Image image = ImageIO.read(Main.class.getResource("Assets/Onibus.png"));
+            mainMenu.setIconImage(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         mainMenu.pack();
         mainMenu.setLocationRelativeTo(null);
         mainMenu.setVisible(true);

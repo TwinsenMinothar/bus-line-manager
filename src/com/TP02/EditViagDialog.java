@@ -22,10 +22,14 @@ public class EditViagDialog extends JDialog {
     private JButton passageirosButton;
     private JCheckBox deletarCheckBox;
     private JLabel totalArrecadadoLabel;
+    private JLabel numEstudantes;
+    private JLabel numAposentados;
+    private JLabel numComuns;
     private JButton deletarOK;
     private int i = -1;
     private String nomeViagem;
     private boolean flag;
+    private Onibus onibus;
 
     public EditViagDialog() {
         flag = false;
@@ -70,10 +74,14 @@ public class EditViagDialog extends JDialog {
                     nomeViagem = listaDeViagens.getSelectedItem().toString();
                     i = getOnibusPorNome(nomeViagem);
                     if (i == -1) return;
-                    nomeLinha.setText(onibusVet.get(i).getNomeDaLinha());
-                    nomeMot.setText(onibusVet.get(i).getMotorista());
-                    precoPass.setText(String.valueOf(onibusVet.get(i).getPrecoPassagem()));
-                    totalArrecadadoLabel.setText(String.valueOf(onibusVet.get(i).getTotalArrecadado()));
+                    onibus = getOnibusVet().get(i);
+                    nomeLinha.setText(onibus.getNomeDaLinha());
+                    nomeMot.setText(onibus.getMotorista());
+                    precoPass.setText(String.valueOf(onibus.getPrecoPassagem()));
+                    totalArrecadadoLabel.setText(String.valueOf(onibus.getTotalArrecadado()));
+                    numAposentados.setText(String.valueOf(onibus.getTotalAposentados()));
+                    numEstudantes.setText(String.valueOf(onibus.getTotalEstudantes()));
+                    numComuns.setText(String.valueOf(onibus.getTotalEstudantes()));
                 }
             }
         });
