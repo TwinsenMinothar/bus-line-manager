@@ -26,7 +26,7 @@
         </constraints>
         <properties>
           <background color="-263636"/>
-          <text value="Configurar Viagens"/>
+          <text value="Configurar / Visualizar Viagens"/>
         </properties>
       </component>
       <component id="c86f1" class="javax.swing.JButton" binding="sairButton" default-binding="true">

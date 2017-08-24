@@ -39,13 +39,15 @@ public class Onibus implements Serializable {
         }
     }
 
-    public float getTotalArrecadado() {
+    public float getTotalArrecadado(int mes) {
         this.caixa = 0;
         for (Passageiro pas : passageiroVet) {
-            if (pas.getClass() == Passageiro.class)
-                caixa += precoPassagem;
-            else if (pas.getClass() == Estudante.class)
-                caixa += precoPassagem / 2;
+            if (pas.data.getMonthValue() == mes) {
+                if (pas.getClass() == Passageiro.class)
+                    caixa += precoPassagem;
+                else if (pas.getClass() == Estudante.class)
+                    caixa += precoPassagem / 2;
+            }
         }
         return caixa;
     }
@@ -78,29 +80,35 @@ public class Onibus implements Serializable {
         return passageiroVet;
     }
 
-    public int getTotalEstudantes() {
+    public int getTotalEstudantes(int mes) {
         totalEstudantes = 0;
         for (Passageiro pas : passageiroVet) {
-            if (Objects.equals(pas.getClass().getSimpleName(), Estudante.class.getSimpleName()))
-                totalEstudantes++;
+            if (pas.data.getMonthValue() == mes) {
+                if (Objects.equals(pas.getClass().getSimpleName(), Estudante.class.getSimpleName()))
+                    totalEstudantes++;
+            }
         }
         return totalEstudantes;
     }
 
-    public int getTotalAposentados() {
+    public int getTotalAposentados(int mes) {
         totalAposentados = 0;
         for (Passageiro pas : passageiroVet) {
-            if (Objects.equals(pas.getClass().getSimpleName(), Aposentado.class.getSimpleName()))
-                totalAposentados++;
+            if (pas.data.getMonthValue() == mes) {
+                if (Objects.equals(pas.getClass().getSimpleName(), Aposentado.class.getSimpleName()))
+                    totalAposentados++;
+            }
         }
         return totalAposentados;
     }
 
-    public int getTotalComuns() {
+    public int getTotalComuns(int mes) {
         totalComuns = 0;
         for (Passageiro pas : passageiroVet)
-            if (Objects.equals(pas.getClass().getSimpleName(), Passageiro.class.getSimpleName()))
-                totalComuns++;
+            if (pas.data.getMonthValue() == mes) {
+                if (Objects.equals(pas.getClass().getSimpleName(), Passageiro.class.getSimpleName()))
+                    totalComuns++;
+            }
         return totalComuns;
     }
 }

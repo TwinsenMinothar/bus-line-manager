@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.TP02.Main.icone;
 import static com.TP02.Main.onibusVet;
 
 public class NovoOnibusDialog extends JDialog {
@@ -99,6 +100,7 @@ public class NovoOnibusDialog extends JDialog {
 
     public static void main(String[] args) {
         NovoOnibusDialog dialog = new NovoOnibusDialog();
+        dialog.setIconImage(icone);
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);

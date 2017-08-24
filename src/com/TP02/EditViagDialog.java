@@ -2,11 +2,10 @@ package com.TP02;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.Map;
 import java.util.Objects;
 
-import static com.TP02.Main.getOnibusPorNome;
-import static com.TP02.Main.getOnibusVet;
-import static com.TP02.Main.onibusVet;
+import static com.TP02.Main.*;
 
 public class EditViagDialog extends JDialog {
     private JPanel contentPane;
@@ -25,11 +24,13 @@ public class EditViagDialog extends JDialog {
     private JLabel numEstudantes;
     private JLabel numAposentados;
     private JLabel numComuns;
+    private JComboBox meses;
     private JButton deletarOK;
     private int i = -1;
     private String nomeViagem;
     private boolean flag;
     private Onibus onibus;
+    private String[] mesesString = {"Janeiro", "Fevereiro", "Marco", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 
     public EditViagDialog() {
         flag = false;
@@ -39,6 +40,8 @@ public class EditViagDialog extends JDialog {
         updateComboBox();
         deletarOK = new JButton("OK");
         totalArrecadadoLabel.setText("0");
+        for (String mes : mesesString)
+            meses.addItem(mes);
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -78,10 +81,10 @@ public class EditViagDialog extends JDialog {
                     nomeLinha.setText(onibus.getNomeDaLinha());
                     nomeMot.setText(onibus.getMotorista());
                     precoPass.setText(String.valueOf(onibus.getPrecoPassagem()));
-                    totalArrecadadoLabel.setText(String.valueOf(onibus.getTotalArrecadado()));
-                    numAposentados.setText(String.valueOf(onibus.getTotalAposentados()));
-                    numEstudantes.setText(String.valueOf(onibus.getTotalEstudantes()));
-                    numComuns.setText(String.valueOf(onibus.getTotalEstudantes()));
+                    totalArrecadadoLabel.setText(String.valueOf(onibus.getTotalArrecadado(meses.getSelectedIndex()+1)));
+                    numAposentados.setText(String.valueOf(onibus.getTotalAposentados(meses.getSelectedIndex()+1)));
+                    numEstudantes.setText(String.valueOf(onibus.getTotalEstudantes(meses.getSelectedIndex()+1)));
+                    numComuns.setText(String.valueOf(onibus.getTotalComuns(meses.getSelectedIndex()+1)));
                 }
             }
         });
@@ -92,7 +95,7 @@ public class EditViagDialog extends JDialog {
                 if (Objects.equals(nomeLinha.getText(), "")) {
                     JOptionPane.showMessageDialog(null, "Selecione alguma Viagem!!", null, JOptionPane.ERROR_MESSAGE);
                 } else
-                    ListaPassageiros.main(new String[]{nomeViagem});
+                    ListaPassageiros.main(new String[]{nomeViagem,String.valueOf(meses.getSelectedIndex())});
             }
         });
         precoPass.addKeyListener(new KeyAdapter() {
@@ -110,10 +113,19 @@ public class EditViagDialog extends JDialog {
         deletarOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.err.println("here");
+                //System.err.println("here");
             }
         });
 
+        meses.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                totalArrecadadoLabel.setText(String.valueOf(onibus.getTotalArrecadado(meses.getSelectedIndex()+1)));
+                numAposentados.setText(String.valueOf(onibus.getTotalAposentados(meses.getSelectedIndex()+1)));
+                numEstudantes.setText(String.valueOf(onibus.getTotalEstudantes(meses.getSelectedIndex()+1)));
+                numComuns.setText(String.valueOf(onibus.getTotalComuns(meses.getSelectedIndex()+1)));
+            }
+        });
     }
 
     private void onOK() {
@@ -163,6 +175,7 @@ public class EditViagDialog extends JDialog {
 
     public static void main(String[] args) {
         EditViagDialog dialog = new EditViagDialog();
+        dialog.setIconImage(icone);
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);

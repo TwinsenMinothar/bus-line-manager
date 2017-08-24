@@ -3,9 +3,13 @@ package com.TP02;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static com.TP02.Main.icone;
 
 public class AdicionarPassageirosDialog extends JDialog {
     private JPanel contentPane;
@@ -16,8 +20,13 @@ public class AdicionarPassageirosDialog extends JDialog {
     private JTextField rGRATxField;
     private JLabel rGRALabel;
     private static List<Passageiro> passageiros;
+    private LocalDateTime data =  LocalDateTime.now();
 
     public AdicionarPassageirosDialog() {
+        int dia = data.getDayOfMonth();
+        int mes = data.getMonthValue();
+        int ano = data.getYear();
+        int diaAno = data.getDayOfYear();
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -74,11 +83,11 @@ public class AdicionarPassageirosDialog extends JDialog {
     private void onOK() {
         if(!Objects.equals(nomeField.getText(), "")) {
             if (comboBox1.getSelectedIndex() == 0)
-                passageiros.add(new Passageiro(nomeField.getText()));
+                passageiros.add(new Passageiro(nomeField.getText(),data));
             if (comboBox1.getSelectedIndex() == 1)
-                passageiros.add(new Estudante(nomeField.getText(), rGRATxField.getText()));
+                passageiros.add(new Estudante(nomeField.getText(), rGRATxField.getText(),data));
             if (comboBox1.getSelectedIndex() == 2)
-                passageiros.add(new Aposentado(nomeField.getText(), rGRATxField.getText()));
+                passageiros.add(new Aposentado(nomeField.getText(), rGRATxField.getText(),data));
         }else
             JOptionPane.showMessageDialog(null, "Dados Invlidos!!",null,JOptionPane.ERROR_MESSAGE);
         nomeField.setText("");
@@ -98,6 +107,7 @@ public class AdicionarPassageirosDialog extends JDialog {
 
     public static List<Passageiro> main(String[] args) {
         dialog = new AdicionarPassageirosDialog();
+        dialog.setIconImage(icone);
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);

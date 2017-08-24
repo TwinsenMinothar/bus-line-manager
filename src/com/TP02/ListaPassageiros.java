@@ -11,8 +11,11 @@ import java.net.PasswordAuthentication;
 import java.util.List;
 import java.util.Objects;
 
+import static com.TP02.Main.icone;
+
 public class ListaPassageiros extends JDialog {
     private static String nomeDaV;
+    private static String mesDesejado;
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -21,7 +24,7 @@ public class ListaPassageiros extends JDialog {
     private List<Passageiro> vetPas;
     private List<Passageiro> vetPasAdd;
     private Onibus onibus;
-    private Object[] colunas = new String[]{"ID", "Tipo", "Nome", "RG/RA", "Valor Pago"};
+    private Object[] colunas = new String[]{"Data do Ingresso", "Tipo", "Nome", "RG/RA", "Valor Pago"};
 
     public ListaPassageiros() {
         setContentPane(contentPane);
@@ -39,18 +42,21 @@ public class ListaPassageiros extends JDialog {
 
         for (int i = 0; i < vetPas.size(); i++) {
             int j = 0;
-            model.setValueAt(Integer.toString(i + 1), i, j++);
-            model.setValueAt(vetPas.get(i).getClass().getSimpleName(), i, j++);
-            model.setValueAt(vetPas.get(i).getNome(), i, j++);
-            if (Objects.equals(vetPas.get(i).getClass().getSimpleName(), "Estudante")) {
-                model.setValueAt(((Estudante) vetPas.get(i)).getRa(), i, j++);
-                model.setValueAt(onibus.getPrecoPassagem() / 2, i, j);
-            } else if (Objects.equals(vetPas.get(i).getClass().getSimpleName(), "Aposentado")) {
-                model.setValueAt(((Aposentado) vetPas.get(i)).getRg(), i, j++);
-                model.setValueAt(0, i, j);
-            } else {
-                model.setValueAt("", i, j++);
-                model.setValueAt(onibus.getPrecoPassagem(),i,j);
+            if(Integer.parseInt(mesDesejado)+1 == vetPas.get(i).data.getMonthValue()) {
+                String data = String.valueOf(vetPas.get(i).data.getDayOfMonth()) + "/" + String.valueOf(vetPas.get(i).data.getMonthValue()) + "/" + String.valueOf(vetPas.get(i).data.getYear());
+                model.setValueAt(data, i, j++);
+                model.setValueAt(vetPas.get(i).getClass().getSimpleName(), i, j++);
+                model.setValueAt(vetPas.get(i).getNome(), i, j++);
+                if (Objects.equals(vetPas.get(i).getClass().getSimpleName(), "Estudante")) {
+                    model.setValueAt(((Estudante) vetPas.get(i)).getRa(), i, j++);
+                    model.setValueAt(onibus.getPrecoPassagem() / 2, i, j);
+                } else if (Objects.equals(vetPas.get(i).getClass().getSimpleName(), "Aposentado")) {
+                    model.setValueAt(((Aposentado) vetPas.get(i)).getRg(), i, j++);
+                    model.setValueAt(0, i, j);
+                } else {
+                    model.setValueAt("", i, j++);
+                    model.setValueAt(onibus.getPrecoPassagem(), i, j);
+                }
             }
         }
         tabelaPassageiros.setModel(model);
@@ -109,7 +115,9 @@ public class ListaPassageiros extends JDialog {
 
     public static void main(String[] args) {
         nomeDaV = args[0];
+        mesDesejado = args[1];
         ListaPassageiros dialog = new ListaPassageiros();
+        dialog.setIconImage(icone);
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);

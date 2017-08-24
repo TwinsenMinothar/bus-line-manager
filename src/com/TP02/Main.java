@@ -10,6 +10,14 @@ import java.util.List;
 public class Main {
 
     public static List<Onibus> onibusVet;
+    public static Image icone;
+    static {
+        try {
+            icone = ImageIO.read(Main.class.getResource("Assets/Onibus.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         FileIO fi = new FileIO();
@@ -17,12 +25,7 @@ public class Main {
         JFrame mainMenu = new JFrame();
         mainMenu.setContentPane(new GUI().getMainPanel());
         mainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        try {
-            Image image = ImageIO.read(Main.class.getResource("Assets/Onibus.png"));
-            mainMenu.setIconImage(image);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        mainMenu.setIconImage(icone);
         mainMenu.pack();
         mainMenu.setLocationRelativeTo(null);
         mainMenu.setVisible(true);

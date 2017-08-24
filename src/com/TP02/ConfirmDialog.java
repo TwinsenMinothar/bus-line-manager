@@ -3,6 +3,8 @@ package com.TP02;
 import javax.swing.*;
 import java.awt.event.*;
 
+import static com.TP02.Main.icone;
+
 public class ConfirmDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
@@ -56,6 +58,7 @@ public class ConfirmDialog extends JDialog {
 
     public static boolean main(String msg) {
         ConfirmDialog dialog = new ConfirmDialog(msg);
+        dialog.setIconImage(icone);
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);

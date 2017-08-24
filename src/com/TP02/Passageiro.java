@@ -1,16 +1,19 @@
 package com.TP02;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class Passageiro implements Serializable {
 
     private String nome;
+    LocalDateTime data;
 
     public Passageiro() {
     }
 
-    public Passageiro(String nome) {
+    public Passageiro(String nome, LocalDateTime data) {
         this.nome = nome;
+        this.data = data;
     }
 
     public double calcPaga(double taxa) {
@@ -27,5 +30,9 @@ public class Passageiro implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public LocalDateTime getData() {
+        return this.data;
     }
 }

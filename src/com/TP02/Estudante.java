@@ -1,5 +1,7 @@
 package com.TP02;
 
+import java.time.LocalDateTime;
+
 public class Estudante extends Passageiro {
 
     private String ra;
@@ -7,9 +9,10 @@ public class Estudante extends Passageiro {
     public Estudante() {
     }
 
-    public Estudante(String nome, String ra) {
+    public Estudante(String nome, String ra, LocalDateTime data) {
         this.setNome(nome);
         this.ra = ra;
+        this.data  = data;
     }
 
     @Override
